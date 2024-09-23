@@ -11,7 +11,7 @@ export async function POST(request: Request) {
         messages: [{ role: 'user', content: msg }],
       }, {
         headers: {
-          'Authorization': `Bearer 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`, // Use your actual API key
+          'Authorization': `Bearer ${process.env.OPENAI_KEY}`, // Use your actual API key
           'Content-Type': 'application/json',
         }
       });
