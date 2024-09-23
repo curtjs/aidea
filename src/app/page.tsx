@@ -1,6 +1,6 @@
 "use client"
 import axios from "axios";
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 
 interface ResponseMessage {
   role: "user" | "assistant";
@@ -8,14 +8,13 @@ interface ResponseMessage {
 }
 
 export default function Home() {
-  const [programType, setProgramType] = useState<string>("")
-  const [timeFrame, setTimeFrame] = useState<string>("")
-  const [responses, setResponses] = useState<ResponseMessage[]>([])
+  const [programType, setProgramType] = useState<string>("a web app")
+  const [timeFrame, setTimeFrame] = useState<string>("2 days")
+  const [response, setResponse] = useState<ResponseMessage | null>(null)
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     let msg = `
-    You are a Programming Idea Generator.
+    You are a Programming Idea Generator. Your task is to create very unique ideas using around 10 words
 
     Program Type > ${programType}
     If program type is invalid, say "<programType> doesn't seem programmable!"
@@ -24,12 +23,8 @@ export default function Home() {
     Time frame is How quickly the idea should be completed
     If invalid, say "Invalid time frame"
 
-    Tags: funny
-
-    Simply state the idea, e.x: "A todo list"
+    Simply state the idea, e.x: A todo list
     `
-
-    setResponses((prev) => [...prev, { role: "user", content: msg }])
     try {
       const response = await axios.post('/api/chat ', { msg })
 
@@ -38,7 +33,7 @@ export default function Home() {
         content: response.data.content,
       };
 
-      setResponses((prev) => [...prev, gptResponse])
+      setResponse(gptResponse)
     } catch (error) {
       console.log("oop: ", error)
     } finally {
@@ -47,35 +42,19 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    handleSubmit();
+  }, [])
+
   return (
-    <div className="m-8">
+    <div className="m-8 flex flex-col items-center">
       {/* Intro */}
-      <p className="text-2xl font-bold">aidea</p>
-      <p>programming ideas for those who lack creativity</p>
+      <p className="text-3xl font-bold">aidea</p>
+      <p className="italic">for those who lack creativity</p>
 
-      {/* Form */}
-      <div>
-        <p>I want to create a</p>
-        <input
-        value={programType}
-        onChange={(e) => setProgramType(e.target.value)}
-        placeholder="simple web app, game, etc." />
-        <p>within</p>
-        <input 
-        value={timeFrame}
-        onChange={(e) => setTimeFrame(e.target.value)}
-        placeholder="one hour, week, etc." />
-
-        <button onClick={handleSubmit}>Submit</button>
-      </div>
-
-      {/* Responses */}
-      <div>
-        {responses.map((res, index) => (
-          <div key={index} style={{ textAlign: res.role === "user" ? "right" : "left" }}>
-            <strong>{res.role === "user" ? "You" : "GPT"}:</strong> {res.content}
-          </div>
-        ))}
+      {/* Idea */}
+      <div className="mt-8 font-bold">
+        {response?.content}
       </div>
     </div>
   );
