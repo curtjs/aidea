@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <div className="m-8 flex flex-col items-center">
       {/* Intro */}
-      <p className="text-3xl font-bold">aidea</p>
+      <p className="text-3xl font-bold">aidea 💡</p>
       <p className="italic">for those who lack creativity</p>
 
       {/* Idea */}
