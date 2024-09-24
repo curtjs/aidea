@@ -14,16 +14,7 @@ export default function Home() {
 
   const handleSubmit = async () => {
     let msg = `
-    You are a Programming Idea Generator. Your task is to create very unique ideas using around 10 words
-
-    Program Type > ${programType}
-    If program type is invalid, say "<programType> doesn't seem programmable!"
-
-    Time Frame: ${timeFrame}
-    Time frame is How quickly the idea should be completed
-    If invalid, say "Invalid time frame"
-
-    Simply state the idea, e.x: A todo list
+    Create an easy difficulty idea based around: ${programType}, fun
     `
     try {
       const response = await axios.post('/api/chat ', { msg })
