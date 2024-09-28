@@ -1,6 +1,7 @@
 "use client";
 import Dropdown from "@/components/Dropdown";
 import axios from "axios";
+import { Metadata } from "next";
 import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 
 interface ResponseMessage {
