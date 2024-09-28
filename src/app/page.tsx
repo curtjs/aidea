@@ -19,8 +19,6 @@ export default function Home() {
     Create an ${difficulty} difficulty idea based around: ${programType}, fun
     `;
 
-    console.log("Sending prompt: ", msg);
-
     try {
       const response = await axios.post("/api/chat ", { msg });
 
@@ -31,7 +29,7 @@ export default function Home() {
 
       setResponse(gptResponse);
     } catch (error) {
-      console.log("oop: ", error);
+      console.log("Encountered error: ", error);
     }
   };
 
@@ -42,8 +40,8 @@ export default function Home() {
   return (
     <div className="m-8 flex flex-col items-center">
       {/* Intro */}
-      <p className="text-3xl font-bold">aidea 💡</p>
-      <p className="italic">for those who lack creativity</p>
+      <p className="text-3xl font-bold">aidea</p>
+      <p className="">for those who lack creativity</p>
 
       {/* Generated Idea */}
       <div className="mt-8 font-bold">
