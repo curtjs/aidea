@@ -1,6 +1,6 @@
 "use client";
 import Dropdown from "@/components/Dropdown";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 
 interface ResponseMessage {
@@ -13,6 +13,7 @@ export default function Home() {
   const [difficulty, setDifficulty] = useState<string>("easy");
 
   const [response, setResponse] = useState<ResponseMessage | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const prompt = async () => {
     let msg = `
@@ -30,6 +31,10 @@ export default function Home() {
       setResponse(gptResponse);
     } catch (error) {
       console.log("Encountered error: ", error);
+
+      if (error instanceof AxiosError) {
+        setError(error.response?.data.error);
+      }
     }
   };
 
@@ -38,7 +43,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="m-8 flex flex-col items-center">
+    <div className="p-8 flex flex-col items-center h-screen">
       {/* Intro */}
       <p className="text-3xl font-bold">aidea</p>
       <p className="">for those who lack creativity</p>
@@ -66,6 +71,14 @@ export default function Home() {
       <button className="btn btn-success mt-4" onClick={prompt}>
         Generate
       </button>
+
+      {/* Error */}
+      {/* if there is an error, show the error banner */}
+      {error && (
+        <div className="alert alert-error mt-auto">
+          {error}. Please wait and try again.
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 import { NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
@@ -6,7 +5,7 @@ import { kv } from "@vercel/kv";
 
 const rateLimit = new Ratelimit({
   redis: kv,
-  limiter: Ratelimit.slidingWindow(10, "1 d"),
+  limiter: Ratelimit.slidingWindow(20, "1 d"),
 });
 
 export async function POST(request: Request) {
