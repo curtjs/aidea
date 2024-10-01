@@ -1,39 +1,14 @@
-<div>
-	<h1>need an <span id="idea">idea?</span></h1>
+<div class="w-screen h-screen flex flex-col items-center justify-center">
+	<h1 class="text-3xl">need a programming <span class="text-green-500">idea?</span></h1>
 
-	<button>yes please!</button>
+	<button
+		class="border border-green-500 rounded-md px-3 py-2 bg-green-400 text-black hover:bg-green-500 transition-colors mt-4"
+		>yes please!</button
+	>
+
+	<div class="absolute bottom-8 flex flex-row gap-2">
+		<button class="text-green-500 hover:text-green-400 transition-colors">about</button>
+		|
+		<button class="text-green-500 hover:text-green-400 transition-colors">github</button>
+	</div>
 </div>
-
-<style lang="scss">
-	// style idea
-	#idea {
-		color: blue;
-	}
-
-	// style the div and center vertically
-	div {
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-
-	// style the button
-	button {
-		color: darkslategray;
-		background-color: whitesmoke;
-		border: none;
-		padding: 10px 10px 10px 10px;
-		border-radius: 10px 10px 10px 10px;
-		// add a shadow
-		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
-		transition: 0.5s;
-
-		&:hover {
-			cursor: pointer;
-			background-color: lightgray;
-			color: black;
-		}
-	}
-</style>
