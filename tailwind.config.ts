@@ -10,7 +10,8 @@ export default {
 	darkMode: 'media',
 	theme: {
 		fontFamily: {
-			roboto: ['Roboto', 'sans-serif']
+			roboto: ['Roboto', 'sans-serif'],
+			mono: ['Roboto Mono', 'monospace']
 		},
 		extend: {
 			colors: {
