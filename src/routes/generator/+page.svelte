@@ -7,8 +7,11 @@
 	let currentIdea: string = $state('');
 	let currentIdeaSaved: boolean = $state(false);
 	let remaining: number = $state(0);
+	let loadingIdea = $state(false);
 
 	async function genIdea() {
+		loadingIdea = true;
+
 		try {
 			const res = await fetch('/api/generateIdea');
 			const data = await res.json();
@@ -18,6 +21,8 @@
 		} catch (error) {
 			console.log('Error fetching idea: ', error);
 		}
+
+		loadingIdea = false;
 	}
 
 	function saveIdea() {
@@ -36,10 +41,11 @@
 	</div>
 
 	<Card class="min-w-full mt-4">
-		{#if !currentIdea}
+		{#if loadingIdea}
 			<Skeleton size="sm" />
+		{:else}
+			<h5>{currentIdea}</h5>
 		{/if}
-		<h5>{currentIdea}</h5>
 
 		<div class="mt-2 flex gap-2 items-center">
 			<Button size="xs" on:click={saveIdea} disabled={currentIdeaSaved}
