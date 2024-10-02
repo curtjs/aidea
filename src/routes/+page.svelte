@@ -3,7 +3,7 @@
 	import { Button } from 'flowbite-svelte';
 </script>
 
-<div class="w-screen h-screen flex flex-col items-center justify-center">
+<div class="w-screen h-screen flex flex-col items-center justify-center text-center">
 	<h1 class="text-3xl">need a programming <span class="text-primary-500">idea?</span></h1>
 	<h2 class="">
 		<span class="text-primary-500">aidea</span> is an AI-powered tool to generate programming ideas
