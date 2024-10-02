@@ -1,5 +1,4 @@
 <!-- AIdea Generator Page -->
-
 <script lang="ts">
 	import { Button, Card, Skeleton } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
@@ -7,12 +6,14 @@
 	let ideas: string[] = $state([]);
 	let currentIdea: string = $state('');
 	let currentIdeaSaved: boolean = $state(false);
+	let remaining: number = $state(0);
 
 	async function genIdea() {
 		try {
 			const res = await fetch('/api/generateIdea');
 			const data = await res.json();
 			currentIdea = data.idea;
+			remaining = data.remaining;
 			currentIdeaSaved = false;
 		} catch (error) {
 			console.log('Error fetching idea: ', error);
@@ -51,7 +52,9 @@
 				on:click={genIdea}>Regenerate</Button
 			>
 
-			<p class="ml-auto font-mono text-sm">0/10</p>
+			<p class={`ml-auto font-mono text-sm ${remaining ? '' : 'text-red-500'}`}>
+				{remaining ? remaining : 0} remaining
+			</p>
 		</div>
 	</Card>
 
