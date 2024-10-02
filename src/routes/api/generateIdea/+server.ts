@@ -11,7 +11,7 @@ const kvClient = createClient({
 
 const rateLimit = new Ratelimit({
 	redis: kvClient,
-	limiter: Ratelimit.slidingWindow(10, '1 d')
+	limiter: Ratelimit.slidingWindow(20, '1 s')
 });
 
 export async function GET(event) {
@@ -29,11 +29,15 @@ export async function GET(event) {
 			messages: [
 				{
 					role: 'user',
-					content: 'Generate a unique and creative programming idea in up to 50 words'
+					content:
+						'Create an easy difficulty idea based around: web app, utility. Answer in 50 words'
 				}
 			],
-			model: 'gpt-4o-mini',
-			temperature: 1.75
+			model: 'ft:gpt-4o-mini-2024-07-18:personal::AASc4brM',
+			temperature: 1.2,
+			top_p: 0.9,
+			frequency_penalty: 0.5,
+			presence_penalty: 0.5
 		});
 
 		return json({ idea: completion.choices[0].message.content, remaining });
