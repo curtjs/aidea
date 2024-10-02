@@ -11,11 +11,10 @@ const kvClient = createClient({
 
 const rateLimit = new Ratelimit({
 	redis: kvClient,
-	limiter: Ratelimit.slidingWindow(20, '1 s')
+	limiter: Ratelimit.slidingWindow(10, '2 h')
 });
 
 export async function GET(event) {
-	// get the ip address
 	const ip = event.getClientAddress();
 	console.log('IP: ', ip);
 	const { success, remaining } = await rateLimit.limit(ip);
